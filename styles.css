@@ -9,66 +9,52 @@
 body{
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
-    color: #333;
+    color: #222;
 }
 
-/* HERO */
-.hero{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+/* NAVBAR */
+.navbar{
+    width: 100%;
 
-    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 40px;
+
+    background-color: white;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    position: sticky;
+    top: 0;
 }
 
 /* LOGO */
-.logo{
-    width: 250px; /* cambia el tamaño aqui */
-    max-width: 80%;
-    margin-bottom: 20px;
+.nav-logo img{
+    width: 130px;
 }
 
-/* TITULO */
-h1{
-    font-size: 3rem;
-    margin-bottom: 15px;
-    color: #111;
-}
-
-/* DESCRIPCION */
-.descripcion{
-    max-width: 700px;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 35px;
-    color: #555;
-}
-
-/* BUSCADOR */
-.search-container{
+/* SEARCH */
+.nav-search{
     display: flex;
     gap: 10px;
-    width: 100%;
-    max-width: 600px;
 }
 
-/* INPUT */
-.search-bar{
-    flex: 1;
-    padding: 15px;
-    border: none;
+.nav-search input{
+    width: 300px;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
     border-radius: 10px;
-    font-size: 1rem;
 
     outline: none;
 }
 
-/* BOTON */
-.search-btn{
-    padding: 15px 25px;
+.nav-search button{
+    padding: 12px 20px;
+
     border: none;
     border-radius: 10px;
 
@@ -76,26 +62,122 @@ h1{
     color: white;
 
     cursor: pointer;
+}
+
+/* HERO */
+.hero{
+    min-height: 60vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px;
+}
+
+/* TITULO */
+.hero h1{
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+/* TEXTO */
+.hero p{
+    max-width: 800px;
+
+    font-size: 1.2rem;
+    line-height: 1.7;
+
+    color: #555;
+
+    margin-bottom: 35px;
+}
+
+/* BOTON */
+.catalog-btn{
+    background-color: black;
+    color: white;
+
+    padding: 15px 35px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
     transition: 0.3s;
 }
 
-/* HOVER */
-.search-btn:hover{
+.catalog-btn:hover{
     background-color: #333;
 }
 
+/* DESTACADAS */
+.featured{
+    width: 90%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding-bottom: 60px;
+}
+
+.featured h2{
+    margin-bottom: 25px;
+    font-size: 2rem;
+}
+
+/* GRID */
+.featured-grid{
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+}
+
+/* CARD */
+.featured-card{
+    background-color: white;
+
+    padding: 40px 20px;
+
+    border-radius: 15px;
+
+    text-decoration: none;
+    color: black;
+
+    text-align: center;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+
+    transition: 0.3s;
+}
+
+.featured-card:hover{
+    transform: translateY(-5px);
+}
+
 /* RESPONSIVE */
-@media (max-width: 600px){
+@media(max-width: 768px){
 
-    h1{
-        font-size: 2rem;
-    }
-
-    .search-container{
+    .navbar{
         flex-direction: column;
+        gap: 20px;
     }
 
-    .search-btn{
+    .nav-search{
         width: 100%;
     }
+
+    .nav-search input{
+        width: 100%;
+    }
+
+    .hero h1{
+        font-size: 2.5rem;
+    }
+
 }

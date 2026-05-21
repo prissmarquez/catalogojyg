@@ -2,8 +2,8 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JyG Catálogo</title>
 
     <link rel="stylesheet" href="styles.css">
@@ -11,32 +11,74 @@
 
 <body>
 
-    <!-- HEADER -->
-    <header class="hero">
+    <!-- NAVBAR -->
+    <nav class="navbar">
 
         <!-- LOGO -->
-        <img src="images/logo.jpg" alt="Logo JyG" class="logo">
-
-        <!-- TITULO -->
-        <h1>JyG Catálogo</h1>
-
-        <!-- DESCRIPCION -->
-        <p class="descripcion">
-            Bienvenido al catálogo digital de JyG.
-            Explora nuestros productos organizados por categorías
-            y encuentra fácilmente lo que necesitas.
-        </p>
-
-        <!-- BARRA DE BUSQUEDA -->
-        <div class="search-container">
-            <input type="text" placeholder="Buscar productos..." class="search-bar">
-
-            <button class="search-btn">
-                Buscar
-            </button>
+        <div class="nav-logo">
+            <img src="images/logo.jpg" alt="Logo JyG">
         </div>
 
-    </header>
+        <!-- BUSCADOR -->
+        <div class="nav-search">
+
+            <input 
+                type="text" 
+                placeholder="Buscar productos..."
+            >
+
+            <button>
+                Buscar
+            </button>
+
+        </div>
+
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <h1>JyG Catálogo</h1>
+
+        <p>
+            Explora miles de productos organizados por categorías.
+            Encuentra fácilmente materiales, herramientas y productos
+            para construcción, electricidad, plomería y mucho más.
+        </p>
+
+        <!-- BOTON -->
+        <a href="categorias-a.html" class="catalog-btn">
+            Ver catálogo
+        </a>
+
+    </section>
+
+    <!-- CATEGORIAS DESTACADAS -->
+    <section class="featured">
+
+        <h2>Categorías destacadas</h2>
+
+        <div class="featured-grid">
+
+            <a href="#" class="featured-card">
+                Abrazaderas
+            </a>
+
+            <a href="#" class="featured-card">
+                Acero inoxidable
+            </a>
+
+            <a href="#" class="featured-card">
+                Artefactos eléctricos
+            </a>
+
+            <a href="#" class="featured-card">
+                Aspersores
+            </a>
+
+        </div>
+
+    </section>
 
 </body>
 
