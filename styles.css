@@ -481,36 +481,6 @@ body{
   line-height: 1.4;
 }
 
-/* ───────────────────────── */
-/* SIDEBAR */
-/* ───────────────────────── */
-
-.sidebar-overlay{
-
-  position: fixed;
-
-  inset: 0;
-
-  background: rgba(0,0,0,0.45);
-
-  opacity: 0;
-
-  visibility: hidden;
-
-  transition: 0.3s;
-
-  z-index: 90;
-}
-
-.sidebar-overlay.open{
-
-  opacity: 1;
-
-  visibility: visible;
-}
-
-/* ───────────────────────── */
-
 /* SIDEBAR */
 
 .sidebar{
@@ -686,11 +656,143 @@ body{
   }
 
   .categories-grid{
-
     grid-template-columns:
       repeat(
         auto-fill,
         minmax(170px,1fr)
       );
   }
+  }
+
+/* ───────────────────────── */
+/* PAGINA CATALOGO */
+/* ───────────────────────── */
+
+.catalog-hero{
+
+  text-align: center;
+
+  padding: 70px 20px 40px;
+}
+
+.catalog-badge{
+
+  display: inline-block;
+
+  background: #dbeafe;
+
+  color: #1a5fa8;
+
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  margin-bottom: 20px;
+}
+
+.catalog-hero h1{
+
+  font-size: 48px;
+
+  margin-bottom: 16px;
+
+  color: #111827;
+}
+
+.catalog-hero p{
+
+  color: #6b7280;
+
+  font-size: 17px;
+}
+
+.catalog-grid{
+
+  max-width: 1300px;
+
+  margin: 0 auto;
+
+  padding: 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(260px,1fr)
+    );
+
+  gap: 20px;
+}
+
+.catalog-card{
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 26px;
+
+  text-decoration: none;
+
+  color: #111827;
+
+  border: 1px solid #e5e7eb;
+
+  transition: 0.25s;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.catalog-card:hover{
+
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,0.08);
+
+  border-color: #1a5fa8;
+}
+
+.catalog-letter{
+
+  width: 46px;
+
+  height: 46px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1a5fa8,
+      #1a7a4a
+    );
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-weight: 700;
+
+  margin-bottom: 18px;
+
+  font-size: 18px;
+}
+
+.catalog-card h2{
+
+  font-size: 18px;
+
+  line-height: 1.4;
 }
