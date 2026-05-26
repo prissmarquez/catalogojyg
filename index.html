@@ -2,83 +2,487 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JyG Catálogo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="styles.css">
+  <title>Materiales JyG</title>
+
+  <!-- FUENTES -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-   // NAVBAR
-    <nav class="navbar">
+  <!-- OVERLAY -->
+  <div 
+    class="sidebar-overlay" 
+    id="sidebarOverlay"
+    onclick="closeSidebar()">
+  </div>
 
-        // LOGO 
-        <div class="nav-logo">
-            <img src="images/logo.jpg" alt="Logo JyG">
-        </div>
 
-        // BUSCADOR 
-        <div class="nav-search">
+   <!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
 
-            <input 
-                type="text" 
-                placeholder="Buscar productos..."
-            >
+  <div class="sidebar-header">
 
-            <button>
-                Buscar
-            </button>
+    <div>
+      <h2>Catálogo</h2>
+      <p>Líneas de productos</p>
+    </div>
 
-        </div>
+    <button onclick="closeSidebar()">×</button>
 
-    </nav>
+  </div>
 
-    // HERO 
-    <section class="hero">
+  <div class="sidebar-content">
 
-        <h1>JyG Catálogo</h1>
+    <!-- A -->
+    <div class="letter-group">
 
-        <p>
-            Explora miles de productos organizados por categorías.
-            Encuentra fácilmente materiales, herramientas y productos
-            para construcción, electricidad, plomería y mucho más.
-        </p>
+      <h3>A</h3>
 
-        <!-- BOTON -->
-        <a href="categorias-a.html" class="catalog-btn">
-            Ver catálogo
+      <a href="#">ABRAZADERAS</a>
+      <a href="#">Aceites, grasas,etc</a>
+      <a href="#">Acero inoxidable y acidos</a>
+      <a href="#">Adoquines</a>
+      <a href="#">ADS</a>
+      <a href="#">AGREGADOS QUIMICOS</a>
+      <a href="#">Alambre de Puas</a>
+      <a href="#">Alambre Galvanizado</a>
+      <a href="#">Alambron y estribos (derivados)</a>
+      <a href="#">Antioxi/primer</a>
+      <a href="#">Arcos y seguetas (repuestos)</a>
+      <a href="#">armella y alcayata</a>
+      <a href="#">Artefactos electricos</a>
+      <a href="#">Aspersores y Atomizadores</a>
+
+    </div>
+
+     <!-- B -->
+    <div class="letter-group">
+
+      <h3>B</h3>
+
+      <a href="#">Bandolas</a>
+      <a href="#">Baterias</a>
+      <a href="#">Bisagras</a>
+      <a href="#">Bombas</a>
+      <a href="#">Boquillas/Junteadores</a>
+      <a href="#">Brocas</a>
+      <a href="#">Brochas y rodillos</a>
+
+    </div>
+
+     <!-- C -->
+    <div class="letter-group">
+
+      <h3>C</h3>
+
+      <a href="#">Cable</a>
+      <a href="#">Cadena</a>
+      <a href="#">Calentadores</a>
+      <a href="#">Cales</a>
+      <a href="#">Candados</a>
+      <a href="#">Carretillas</a>
+      <a href="#">Cementos</a>
+      <a href="#">Cerraduras</a>
+      <a href="#">Cespol</a>
+      <a href="#">Cintas de medicion/Flexometros</a>
+      <a href="#">Clavos</a>
+      <a href="#">Coladeras/Registros</a>
+      <a href="#">Color concentrado</a>
+      <a href="#">Colorante para teñir</a>
+      <a href="#">Concreto Premezclado</a>
+      <a href="#">Conduit Galvanizado</a>
+      <a href="#">Conexiones condulet</a>
+      <a href="#">Conexiones de gas</a>
+
+    </div>
+
+    <!-- D -->
+    <div class="letter-group">
+
+      <h3>D</h3>
+
+      <a href="#">Decorativos</a>
+      <a href="#">Derivados acero</a>
+      <a href="#">Derivados barro</a>
+      <a href="#">Desarmadores</a>
+      <a href="#">Discos y cardas</a>
+      <a href="#">Divisores</a>
+
+    </div>
+
+    <!-- E -->
+    <div class="letter-group">
+
+      <h3>E</h3>
+
+      <a href="#">Electrico</a>
+      <a href="#">EMPAQUE DE HULE/NEOPRENO</a>
+      <a href="#">Equipo de seguridad</a>
+      <a href="#">EQUIPO Y ACCESORIOS PARA PINTAR</a>
+      <a href="#">ESCALERAS</a>
+      <a href="#">ESMALTE BASE AGUA</a>
+      <a href="#">ESMALTE BRIL FAST</a>
+      <a href="#">ESMALTE INDUSTRIAL 300</a>
+      <a href="#">ESMALTE TECNOBRIL</a>
+      <a href="#">Espatulas</a>
+      <a href="#">ESTUCO / PASTA y ESTRIBO DERIVADO DE VARILLA</a>
+      <a href="#">EXTENSIONES ELECTRICAS</a>
+
+    </div>
+
+    <!-- G -->
+    <div class="letter-group">
+
+      <h3>G</h3>
+
+      <a href="#">GRANOS Y MARMOLINAS</a>
+      <a href="#">Grapas</a>
+      <a href="#">GRASA, LUBRICANTE AUTOMOTRIZ</a>
+      <a href="#">Griferia</a>
+      <a href="#">Guantes</a>
+
+    </div>
+
+    <!-- H -->
+    <div class="letter-group">
+
+      <h3>H</h3>
+
+      <a href="#">HERRAMIENTA CARPINTERO</a>
+      <a href="#">HERRAMIENTA JARDINERIA, AGRICULTURA Y FORESTAL</a>
+      <a href="#">HERRAMIENTAS</a>
+      <a href="#">HERRAMIENTAS P/CONSTRUCCION</a>
+      <a href="#">HERRAMIENTAS P/ELECTRICISTA</a>
+      <a href="#">Hoja 1</a>
+
+    </div>
+
+    <!-- I -->
+    <div class="letter-group">
+
+      <h3>I</h3>
+
+      <a href="#">IMPERMEABILIZANTES</a>
+
+    </div>
+
+    <!-- J -->
+    <div class="letter-group">
+
+      <h3>J</h3>
+
+      <a href="#">Jarceria</a>
+
+    </div>
+
+    <!-- L -->
+    <div class="letter-group">
+
+      <h3>L</h3>
+
+      <a href="#">LAMINA ACRILICA</a>
+      <a href="#">LAMINA DE CARTON</a>
+      <a href="#">LAMINA GALVANIZADA</a>
+      <a href="#">LAMINA POLYACRILICA</a>
+      <a href="#">LAMINA TIPO TEJA</a>
+      <a href="#">LAVADEROS</a>
+      <a href="#">LIJAS</a>
+      <a href="#">LIMAS</a>
+      <a href="#">LLAVE AJUSTABLE</a>
+      <a href="#">LLAVES INGLESAS</a>
+      <a href="#">LUMINARIAS, FOCOS, LED, BOMBILLAS</a>
+
+    </div>
+
+    <!-- M -->
+    <div class="letter-group">
+
+      <h3>M</h3>
+
+      <a href="#">MACHETES</a>
+      <a href="#">MACHUELOS</a>
+      <a href="#">MADERA Y DERIVADOS</a>
+      <a href="#">MALLAS ELECT.</a>
+      <a href="#">MALLAS/CRIBAS</a>
+      <a href="#">MANGUERAS Y POLIDUCTOS</a>
+      <a href="#">MATERIAL BRONCE</a>
+      <a href="#">MATERIAL COBRE</a>
+      <a href="#">MATERIAL CPVC</a>
+      <a href="#">MATERIAL GALVANIZADO</a>
+      <a href="#">MATERIAL HIDRAULICO C-40</a>
+      <a href="#">MATERIAL HIDRAULICO RD26</a>
+      <a href="#">MATERIAL PVC</a>
+      <a href="#">MOLDES</a>
+      <a href="#">MORTEROS</a>
+      <a href="#">MUEBLES DE BAÑO Y ACCESORIOS</a>
+      <a href="#">MULTICONTACTOS</a>
+
+    </div>
+
+    <!-- O -->
+    <div class="letter-group">
+
+      <h3>O</h3>
+
+      <a href="#">Opresores</a>
+
+    </div>
+
+    <!-- P -->
+    <div class="letter-group">
+
+      <h3>P</h3>
+
+      <a href="#">Palas</a>
+      <a href="#">PEGAZULEJOS</a>
+      <a href="#">Perfiles</a>
+      <a href="#">Pijas</a>
+      <a href="#">PINTURA ACUACOVER</a>
+      <a href="#">PINTURA COVER MIL</a>
+      <a href="#">PINTURA COVER PRICE</a>
+      <a href="#">PINTURA EN AEROSOL</a>
+      <a href="#">PINTURA ITP/CLASSIC</a>
+      <a href="#">PINTURA MASTER</a>
+      <a href="#">PINTURA P/ALBERCA</a>
+      <a href="#">PINTURA PARA TRAFICO</a>
+      <a href="#">Pinzas</a>
+      <a href="#">POLIESTIRENO</a>
+      <a href="#">PRODUCTOS DE CONCRETO</a>
+      <a href="#">PVC CONDUIT VERDE</a>
+
+    </div>
+
+    <!-- R -->
+    <div class="letter-group">
+
+      <h3>R</h3>
+
+      <a href="#">REFACCIONES CALENTADORES</a>
+      <a href="#">REMACHES</a>
+      <a href="#">RESANADORES</a>
+      <a href="#">RESINAS</a>
+      <a href="#">Rondanas</a>
+
+    </div>
+
+    <!-- S -->
+    <div class="letter-group">
+
+      <h3>S</h3>
+
+      <a href="#">SELLADOR P/PINTURA</a>
+      <a href="#">SEMI-INDUSTRIAL</a>
+      <a href="#">SILICONES Y SELLADORES</a>
+
+    </div>
+
+    <!-- T -->
+    <div class="letter-group">
+
+      <h3>T</h3>
+
+      <a href="#">TAQUETES</a>
+      <a href="#">TINACOS, CISTERNAS Y ACCESORIOS</a>
+      <a href="#">TINAS HIDROMASAJE Y ACCESORIOS</a>
+      <a href="#">TORNILLO</a>
+      <a href="#">TUBO PLUS</a>
+      <a href="#">TUERCAS</a>
+
+    </div>
+
+    <!-- V -->
+    <div class="letter-group">
+
+      <h3>V</h3>
+
+      <a href="#">VALVULAS</a>
+      <a href="#">VARILLA</a>
+
+    </div>
+
+    <!-- Y -->
+    <div class="letter-group">
+
+      <h3>Y</h3>
+
+      <a href="#">YESOS</a>
+
+    </div>
+
+  </div>
+
+</aside>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+
+    <div class="navbar-inner">
+
+      <!-- LOGO -->
+      <div class="brand">
+
+        <a href="index.html">
+
+          <div class="brand-name">
+            Materiales JyG
+          </div>
+
+          <div class="brand-sub">
+            Catálogo de productos
+          </div>
+
         </a>
 
-    </section>
+      </div>
 
-    // CATEGORIAS DESTACADAS 
-    <section class="featured">
+      <!-- SEARCH -->
+      <div class="search-wrap">
 
-        <h2>Categorías destacadas</h2>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
 
-        <div class="featured-grid">
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+        >
 
-            <a href="#" class="featured-card">
-                Abrazaderas
-            </a>
+      </div>
 
-            <a href="#" class="featured-card">
-                Acero inoxidable
-            </a>
+      <!-- MENU BUTTON -->
+      <button class="menu-btn" onclick="openSidebar()">
 
-            <a href="#" class="featured-card">
-                Artefactos eléctricos
-            </a>
+        ☰ Catálogo
 
-            <a href="#" class="featured-card">
-                Aspersores
-            </a>
+      </button>
 
-        </div>
+    </div>
 
-    </section>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-badge">
+      +8500 productos
+    </div>
+
+    <h1>
+      Encuentra lo que <span>necesitas</span>
+    </h1>
+
+    <p>
+      Explora nuestro catálogo digital de materiales,
+      herramientas, productos eléctricos, hidráulicos,
+      pinturas, construcción y mucho más.
+    </p>
+
+    <div class="hero-buttons">
+
+      <button class="primary-btn" onclick="openSidebar()">
+        Explorar catálogo
+      </button>
+
+      <button class="secondary-btn">
+        Ver líneas
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- CATEGORIAS DESTACADAS -->
+  <main class="content-wrap">
+
+    <div class="section-top">
+
+      <h2 class="section-title">
+        Líneas destacadas
+      </h2>
+
+      <button class="view-all-btn" onclick="openSidebar()">
+        Ver todo
+      </button>
+
+    </div>
+
+    <div class="categories-grid">
+
+      <a href="#" class="category-card">
+        <div class="cat-dot"></div>
+        <h2>ABRAZADERAS</h2>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="cat-dot"></div>
+        <h2>Acero inoxidable</h2>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="cat-dot"></div>
+        <h2>Bombas</h2>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="cat-dot"></div>
+        <h2>Cementos</h2>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="cat-dot"></div>
+        <h2>Herramientas</h2>
+      </a>
+
+      <a href="#" class="category-card">
+        <div class="cat-dot"></div>
+        <h2>Pintura</h2>
+      </a>
+
+    </div>
+
+  </main>
+
+  <!-- SCRIPT -->
+  <script>
+
+    function openSidebar(){
+
+      document
+        .getElementById("sidebar")
+        .classList
+        .add("open");
+
+      document
+        .getElementById("sidebarOverlay")
+        .classList
+        .add("open");
+    }
+
+    function closeSidebar(){
+
+      document
+        .getElementById("sidebar")
+        .classList
+        .remove("open");
+
+      document
+        .getElementById("sidebarOverlay")
+        .classList
+        .remove("open");
+    }
+
+  </script>
 
 </body>
 
