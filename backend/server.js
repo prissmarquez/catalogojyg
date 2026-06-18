@@ -1,38 +1,79 @@
+require("dotenv").config();
+
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
+
 const express = require("express");
 const cors = require("cors");
 const { google } = require("googleapis");
 
 const app = express();
 app.use(cors());
+
 app.use(express.json());
 
+app.use(
+    express.static(
+        path.join(__dirname, "../frontend")
+    )
+);
+
 // conexión a Google
+// const auth = new google.auth.GoogleAuth({
+//     keyFile: "./config/google-credentials.json",
+//     scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
+// });
+
 const auth = new google.auth.GoogleAuth({
     keyFile: "./config/google-credentials.json",
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
+    scopes: [
+        "https://www.googleapis.com/auth/spreadsheets.readonly"
+    ],
 });
 
-// ID del Sheet
+// // ID del Sheet
+// const spreadsheets = {
+//     A: "1FAojRrSV7PIrftOKlHNp0ua8nLJNZiSd-a2iT9RyyZQ",
+//     B: "1QRdl0oI0WyDcBBe7TbDSB42qYHF7TrrbuuBnuXVGFA8",
+//     C: "1Z_CYkMGHo4yCgpxS8O_Gd7U3kjxRM3Zx2qG-AiTFm2o",
+//     D: "1KHoBn0hjsxuzzB_y4sL2-QoZXQx-v-3nnBqvxGEUAk4",
+//     E: "1IF4QamJ1D-h4PWgIv-j4tvsB2Qq0TvVn68yzKXbTrk4",
+//     F: "19P-QJh75rVArMahlAs0iy72AREJoHM2Pao7YcpYW7K4",
+//     G: "1GxPqTcBfgJ-0iQ9yjk5CL2seBqFjeaRv3V4BTQ41C00",
+//     H: "1OlR5IjIl3sv8MJ0sABNt1q-4BSIG12vyECw1ur6xwt4",
+//     I: "1PdSfzy9ZdvUQaNejIwZw5ReyqJ1sgX2CmgGu5Y4csBk",
+//     J: "1PpEQBFRj0N8-DY-rqLMRf6eaV3xahcoy3LttrW0IHwg",
+//     L: "13Gx7kKnARAu_iO9gSshfWFGKOumEzc9Pb75pTjyKz5M",
+//     M: "1uunFsLkm6hfmlI42ykFQwVd3rckGojXcJBeD62t-Knk",
+//     O: "1qvsRsCo3ad42FA472okatJIraLzQWOEN2Di9XqWbgSw",
+//     P: "1x5UmhofGXZe-ESE8Fe9VbC2irTN-7y7HEjCmGBx_Pf8",
+//     R: "1eGlYr0n0UgpvT-evOUOxvAz6iOW-Cq6Pu0K6r2ujCls",
+//     S: "1vb1tXXiJYW1QWi-sQC-7wf3Jv5FFsuz9DJT9QMFmNnE",
+//     T: "1kbuMiDnb7xSFG_EOHKL9zD0ZZV1-W_rglF-3WY4QFwE",
+//     V: "1_xiMvIje-2Ww5OSPxmJDANfWZ-7D0ByJm6axWWNznjQ",
+//     Y: "1rnaH8a9AQiSYugbcvecaUU_GYHTV0boIh-Ac6Cpf4gE",
+// };
 const spreadsheets = {
-    A: "1FAojRrSV7PIrftOKlHNp0ua8nLJNZiSd-a2iT9RyyZQ",
-    B: "1QRdl0oI0WyDcBBe7TbDSB42qYHF7TrrbuuBnuXVGFA8",
-    C: "1Z_CYkMGHo4yCgpxS8O_Gd7U3kjxRM3Zx2qG-AiTFm2o",
-    D: "1KHoBn0hjsxuzzB_y4sL2-QoZXQx-v-3nnBqvxGEUAk4",
-    E: "1IF4QamJ1D-h4PWgIv-j4tvsB2Qq0TvVn68yzKXbTrk4",
-    F: "19P-QJh75rVArMahlAs0iy72AREJoHM2Pao7YcpYW7K4",
-    G: "1GxPqTcBfgJ-0iQ9yjk5CL2seBqFjeaRv3V4BTQ41C00",
-    H: "1OlR5IjIl3sv8MJ0sABNt1q-4BSIG12vyECw1ur6xwt4",
-    I: "1PdSfzy9ZdvUQaNejIwZw5ReyqJ1sgX2CmgGu5Y4csBk",
-    J: "1PpEQBFRj0N8-DY-rqLMRf6eaV3xahcoy3LttrW0IHwg",
-    L: "13Gx7kKnARAu_iO9gSshfWFGKOumEzc9Pb75pTjyKz5M",
-    M: "1uunFsLkm6hfmlI42ykFQwVd3rckGojXcJBeD62t-Knk",
-    O: "1qvsRsCo3ad42FA472okatJIraLzQWOEN2Di9XqWbgSw",
-    P: "1x5UmhofGXZe-ESE8Fe9VbC2irTN-7y7HEjCmGBx_Pf8",
-    R: "1eGlYr0n0UgpvT-evOUOxvAz6iOW-Cq6Pu0K6r2ujCls",
-    S: "1vb1tXXiJYW1QWi-sQC-7wf3Jv5FFsuz9DJT9QMFmNnE",
-    T: "1kbuMiDnb7xSFG_EOHKL9zD0ZZV1-W_rglF-3WY4QFwE",
-    V: "1_xiMvIje-2Ww5OSPxmJDANfWZ-7D0ByJm6axWWNznjQ",
-    Y: "1rnaH8a9AQiSYugbcvecaUU_GYHTV0boIh-Ac6Cpf4gE",
+    A: process.env.SPREADSHEET_A,
+    B: process.env.SPREADSHEET_B,
+    C: process.env.SPREADSHEET_C,
+    D: process.env.SPREADSHEET_D,
+    E: process.env.SPREADSHEET_E,
+    F: process.env.SPREADSHEET_F,
+    G: process.env.SPREADSHEET_G,
+    H: process.env.SPREADSHEET_H,
+    I: process.env.SPREADSHEET_I,
+    J: process.env.SPREADSHEET_J,
+    L: process.env.SPREADSHEET_L,
+    M: process.env.SPREADSHEET_M,
+    O: process.env.SPREADSHEET_O,
+    P: process.env.SPREADSHEET_P,
+    R: process.env.SPREADSHEET_R,
+    S: process.env.SPREADSHEET_S,
+    T: process.env.SPREADSHEET_T,
+    V: process.env.SPREADSHEET_V,
+    Y: process.env.SPREADSHEET_Y
 };
 
 async function leerHoja(spreadsheetId, sheetName) {
@@ -261,10 +302,10 @@ app.get("/api/productos/:hoja", async (req, res) => {
     }
 });
 
-// prueba básica
-app.get("/", (req, res) => {
-    res.send("Backend del catálogo funcionando 🚀");
-});
+// // prueba básica
+// app.get("/", (req, res) => {
+//     res.send("Backend del catálogo funcionando 🚀");
+// });
 
 app.get("/api/busqueda", async (req, res) => {
 
@@ -314,13 +355,31 @@ async function iniciarServidor() {
 
     await cargarCacheBusqueda();
 
-    app.listen(3000, () => {
+    // app.listen(3000, () => {
 
-        console.log(
-            "Servidor corriendo en http://localhost:3000"
-        );
+    //     console.log(
+    //         "Servidor corriendo en http://localhost:3000"
+    //     );
 
-    });
+    // });
+
+    const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
+});
+
 }
+
+// app.get("*", (req, res) => {
+
+//     res.sendFile(
+//         path.join(
+//             __dirname,
+//             "../frontend/index.html"
+//         )
+//     );
+
+// });
 
 iniciarServidor();

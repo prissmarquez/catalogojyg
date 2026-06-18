@@ -10,3 +10,6 @@ backend/config/google-credentials.json
 
 # Logs
 npm-debug.log
+
+# Variables de entorno
+backend/.env
