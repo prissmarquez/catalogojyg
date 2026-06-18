@@ -1,0 +1,12 @@
+# Node
+node_modules/
+
+# Credenciales
+backend/config/google-credentials.json
+.env
+
+# Archivos del sistema
+.DS_Store
+
+# Logs
+npm-debug.log
