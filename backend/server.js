@@ -26,7 +26,7 @@ app.use(
 // });
 
 const auth = new google.auth.GoogleAuth({
-    keyFile: "./config/google-credentials.json",
+    credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
     scopes: [
         "https://www.googleapis.com/auth/spreadsheets.readonly"
     ],
@@ -372,15 +372,13 @@ app.listen(PORT, () => {
 }
 
 // Mostrar el frontend para cualquier ruta
-app.get("*", (req, res) => {
-
+app.use((req, res) => {
     res.sendFile(
         path.join(
             __dirname,
             "../frontend/index.html"
         )
     );
-
 });
 
 iniciarServidor();
