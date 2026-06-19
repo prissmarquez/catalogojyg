@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "";
 
 const params = new URLSearchParams(window.location.search);
 
@@ -23,10 +23,9 @@ async function cargarProductos() {
 
     try {
 
-        const response =
-            await fetch(
-                `${API_URL}/api/productos/${encodeURIComponent(linea)}`
-            );
+        const response = await fetch(
+    `${API_URL}/api/productos/${encodeURIComponent(linea)}`
+);
 
         const data =
             await response.json();
