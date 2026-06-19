@@ -75,7 +75,6 @@ const spreadsheets = {
 };
 
 async function leerHoja(spreadsheetId, sheetName) {
-
     const client = await auth.getClient();
 
     const googleSheets = google.sheets({
@@ -83,11 +82,12 @@ async function leerHoja(spreadsheetId, sheetName) {
         auth: client,
     });
 
-
-    const response = await googleSheets.spreadsheets.values.get({
-        spreadsheetId,
-        range: `${sheetName}!A:Z`,
-    });
+    const response = await ejecutarConReintento(() =>
+        googleSheets.spreadsheets.values.get({
+            spreadsheetId,
+            range: `${sheetName}!A:Z`,
+        })
+    );
 
     return response.data.values;
 }
@@ -126,6 +126,38 @@ function sleep(ms) {
     );
 }
 
+async function ejecutarConReintento(operacion, intentos = 6) {
+    for (let i = 0; i < intentos; i++) {
+        try {
+            return await operacion();
+        } catch (error) {
+            const status = error.code || error.response?.status;
+            const mensaje = error.message || "";
+
+            const esErrorCuota =
+                status === 429 ||
+                mensaje.includes("Quota exceeded") ||
+                mensaje.includes("Too many requests");
+
+            if (!esErrorCuota) {
+                throw error;
+            }
+
+            const espera =
+                Math.min(64000, Math.pow(2, i) * 1000) +
+                Math.floor(Math.random() * 1000);
+
+            console.log(
+                `Límite de Google Sheets. Reintentando en ${Math.round(espera / 1000)} segundos...`
+            );
+
+            await sleep(espera);
+        }
+    }
+
+    throw new Error("No se pudo completar la petición a Google Sheets después de varios intentos.");
+}
+
 // ============================
 // CARGAR TODOS LOS PRODUCTOS
 // ============================
@@ -147,10 +179,13 @@ async function cargarCacheBusqueda() {
                 auth: client,
             });
 
-            const meta =
-                await googleSheets.spreadsheets.get({
-                    spreadsheetId,
-                });
+           const meta = await ejecutarConReintento(() =>
+    googleSheets.spreadsheets.get({
+        spreadsheetId,
+    })
+);
+
+await sleep(2000);
 
             const hojas =
                 meta.data.sheets.map(
@@ -203,7 +238,7 @@ async function cargarCacheBusqueda() {
                         hoja
                     );
 
-                    await sleep(700);
+                    await sleep(1500);
 
                 } catch (err) {
 
@@ -349,24 +384,15 @@ app.get("/api/busqueda", async (req, res) => {
 });
 
 async function iniciarServidor() {
-
-
-    await cargarCacheBusqueda();
-
-    // app.listen(3000, () => {
-
-    //     console.log(
-    //         "Servidor corriendo en http://localhost:3000"
-    //     );
-
-    // });
-
     const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en puerto ${PORT}`);
-});
+    app.listen(PORT, () => {
+        console.log(`Servidor corriendo en puerto ${PORT}`);
 
+        cargarCacheBusqueda()
+            .then(() => console.log("Cache cargado correctamente"))
+            .catch(err => console.error("Error cargando cache:", err.message));
+    });
 }
 
 // Mostrar el frontend para cualquier ruta
