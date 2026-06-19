@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use(
     express.static(
-        path.join(__dirname, "../frontend")
+        path.join(process.cwd(), "frontend")
     )
 );
 
@@ -374,10 +374,7 @@ app.listen(PORT, () => {
 // Mostrar el frontend para cualquier ruta
 app.use((req, res) => {
     res.sendFile(
-        path.join(
-            __dirname,
-            "../frontend/index.html"
-        )
+        path.join(process.cwd(), "frontend", "index.html")
     );
 });
 
