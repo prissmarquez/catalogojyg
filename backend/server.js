@@ -119,6 +119,92 @@ function convertirLinkDrive(url) {
 }
 
 let cacheBusqueda = [];
+let cacheProductosPorHoja = {};
+const TIEMPO_CACHE = 14 * 24 * 60 * 60 * 1000; // 14 días
+
+let cacheBusquedaTimestamp = 0;
+let promesaCargaBusqueda = null;
+
+async function asegurarCacheBusqueda() {
+    const ahora = Date.now();
+
+    if (
+        cacheBusqueda.length > 0 &&
+        ahora - cacheBusquedaTimestamp < TIEMPO_CACHE
+    ) {
+        console.log("Cache de búsqueda usado");
+        return;
+    }
+
+    if (!promesaCargaBusqueda) {
+        console.log("Cargando cache de búsqueda...");
+
+        promesaCargaBusqueda = cargarCacheBusqueda()
+            .then(() => {
+                cacheBusquedaTimestamp = Date.now();
+                console.log("Cache de búsqueda actualizado");
+            })
+            .finally(() => {
+                promesaCargaBusqueda = null;
+            });
+    }
+
+    await promesaCargaBusqueda;
+}
+
+async function obtenerProductosPorHoja(hoja) {
+    const ahora = Date.now();
+
+    if (
+        cacheProductosPorHoja[hoja] &&
+        ahora - cacheProductosPorHoja[hoja].timestamp < TIEMPO_CACHE
+    ) {
+        console.log("Cache usado para hoja:", hoja);
+        return cacheProductosPorHoja[hoja].productos;
+    }
+
+    const letra = hoja.charAt(0).toUpperCase();
+    const spreadsheetId = spreadsheets[letra];
+
+    if (!spreadsheetId) {
+        throw new Error("No existe spreadsheet para esta línea");
+    }
+
+    const data = await leerHoja(spreadsheetId, hoja);
+
+    if (!data || data.length === 0) {
+        throw new Error("Hoja vacía o no encontrada");
+    }
+
+    const headers = data[0];
+    const rows = data.slice(1);
+
+    const productos = rows.map(row => {
+        let obj = {};
+
+        headers.forEach((header, index) => {
+            const key = header.trim();
+            let value = row[index];
+
+            if (key === "Imagenes") {
+                value = convertirLinkDrive(value);
+            }
+
+            obj[key] = value;
+        });
+
+        return obj;
+    });
+
+    cacheProductosPorHoja[hoja] = {
+        timestamp: ahora,
+        productos
+    };
+
+    console.log("Hoja actualizada en cache:", hoja);
+
+    return productos;
+}
 
 function sleep(ms) {
     return new Promise(resolve =>
@@ -168,9 +254,14 @@ async function cargarCacheBusqueda() {
 
     for (const letra in spreadsheets) {
 
-        const spreadsheetId = spreadsheets[letra];
+    const spreadsheetId = spreadsheets[letra];
 
-        try {
+    if (!spreadsheetId) {
+        console.log("Spreadsheet no configurado:", letra);
+        continue;
+    }
+
+    try {
 
             const client = await auth.getClient();
 
@@ -271,53 +362,9 @@ await sleep(2000);
 
 app.get("/api/productos/:hoja", async (req, res) => {
     try {
-
         const hoja = req.params.hoja.trim();
 
-        // detectar letra
-        const letra = hoja.charAt(0).toUpperCase();
-
-        // obtener spreadsheet correcto
-        const spreadsheetId = spreadsheets[letra];
-
-        if (!spreadsheetId) {
-
-            return res.status(404).json({
-                error: "No existe spreadsheet para esta línea"
-            });
-        }
-
-        const data = await leerHoja(spreadsheetId, hoja);
-
-        if (!data || data.length === 0) {
-
-            return res.status(404).json({
-                error: "Hoja vacía o no encontrada"
-            });
-        }
-
-        const headers = data[0];
-        const rows = data.slice(1);
-
-        const productos = rows.map(row => {
-
-            let obj = {};
-
-            headers.forEach((header, index) => {
-
-                const key = header.trim();
-
-                let value = row[index];
-
-                if (key === "Imagenes") {
-                    value = convertirLinkDrive(value);
-                }
-
-                obj[key] = value;
-            });
-
-            return obj;
-        });
+        const productos = await obtenerProductosPorHoja(hoja);
 
         res.json({
             hoja,
@@ -326,8 +373,7 @@ app.get("/api/productos/:hoja", async (req, res) => {
         });
 
     } catch (error) {
-
-        console.error(error);
+        console.error(error.message);
 
         res.status(500).json({
             error: error.message
@@ -348,9 +394,10 @@ app.get("/api/busqueda", async (req, res) => {
             req.query.q?.toLowerCase().trim();
 
         if (!q) {
-
             return res.json([]);
         }
+
+        await asegurarCacheBusqueda();
 
         const resultados =
             cacheBusqueda.filter(producto => {
@@ -388,10 +435,6 @@ async function iniciarServidor() {
 
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en puerto ${PORT}`);
-
-        cargarCacheBusqueda()
-            .then(() => console.log("Cache cargado correctamente"))
-            .catch(err => console.error("Error cargando cache:", err.message));
     });
 }
 
